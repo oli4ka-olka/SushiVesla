@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SushiVesla.ObjectModel.Entities.Product>
+@{
+    ViewBag.Title = "Admin: Products";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Products</h1>
+
+<div class="adminGrid">
+    <table width="90%" align="center">
+        <tr>
+            <th align="center">ID</th>
+            <th align="center">Name</th>
+            <th class="NumericCol" align="center">Price</th>
+            <th align="center">Actions</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td align="center">@item.ProductID</td>
+                <td align="center">@Html.ActionLink(item.Name, "EditProduct", new { item.ProductID })</td>
+                <td class="NumericCol" align="center">@item.Price.ToString("c")</td>
+                <td align="center">
+                    @using (Html.BeginForm("DeleteProduct", "Admin"))
+                    {
+                        @Html.Hidden("ProductID", item.ProductID)
+                        <input type="submit" value="Delete" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="adminActionButtonsLayout">
+        <div class="adminActionButtons">
+            @Html.ActionLink("Add a new product", "CreateProduct")
+        </div>
+    </div>
+</div>

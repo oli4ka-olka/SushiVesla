@@ -1,0 +1,46 @@
+﻿@model SushiVesla.WebUI.Models.SearchResultsViewModel
+@using SushiVesla.WebUI.HtmlHelpers
+@{
+    ViewBag.Title = "Search";
+}
+
+<div class="container" style="margin-bottom: 20px">
+    <h1>Search</h1>
+    @using (@Html.BeginForm("Index", "Search"))
+    {
+        <div class="search">
+            <div class="searchTextForSearch">
+                Text for search: @Html.EditorFor(x => x.TextForSearch)
+                <input type="submit" value="Search" />
+            </div>
+            <div class="searchResult">
+                @if (Model.TextForSearch != null && Model.Products != null && Model.Products.Count() > 0)
+                {
+                    <div>
+                        Search results "@Model.TextForSearch.ToString()"
+                    </div>
+                }
+                else
+                {
+                    if (Model.TextForSearch != null)
+                    {
+                    <div>
+                        There is no results for request "@Model.TextForSearch.ToString()"
+                    </div>
+                    }
+                }
+            </div>
+        </div>
+                if (Model.TextForSearch != "" && Model.Products != null)
+                {
+                    foreach (var p in Model.Products)
+                    {
+                        Html.RenderPartial("ProductSummary", p);
+                    }
+
+        <div class="pager">
+            @PagingHelpers.PageLinks(null, Model.PagingInfo, x => Url.Action("Index", new { page = x, textForSearch = Model.TextForSearch }))
+        </div>
+                }
+    }
+</div>

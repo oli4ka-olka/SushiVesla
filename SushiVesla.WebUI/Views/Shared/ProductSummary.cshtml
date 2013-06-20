@@ -1,0 +1,42 @@
+﻿@model SushiVesla.ObjectModel.Entities.Product
+
+<div class="productItem">
+    <table>
+        <tr>
+            <td style="vertical-align: top">
+                <div style="float: left; margin-right: 20px">
+                    @if (Model.ImageData != null)
+                    {
+                        <img width="364" height="228" src="@Url.Action("GetImage", "Product", new { Model.ProductID })" />
+                    }
+                    else
+                    {
+                        <img width="364" height="228" src="@Url.Content("~/Content/Images/NoImage.png")"/>
+                    }
+                </div>
+            </td>
+            <td style="vertical-align: top">
+                <h3>@Html.ActionLink(Model.Name, "Product", "Product", new { ID = Model.ProductID }, null)</h3>
+                @Model.Description
+                <div style="margin-top: 30px">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("AddToCart", "Cart"))
+                        {
+                        @Html.HiddenFor(x => x.ProductID)
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        <input type="submit" value="+ Add to cart" />
+                        }
+                    }
+                    else
+                    {
+                        <h4>
+                            <div style="color: red">You must be logged in to be able to make purchases!</div>
+                        </h4>
+                    }
+                    <h4>@Model.Price.ToString("c")</h4>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

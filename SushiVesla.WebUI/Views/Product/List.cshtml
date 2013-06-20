@@ -1,0 +1,32 @@
+﻿@model SushiVesla.WebUI.Models.ProductListViewModel
+@using SushiVesla.WebUI.HtmlHelpers
+
+<div class="container" style="margin-bottom: 20px">
+    <table>
+        <tr>
+            <td style="vertical-align: top">
+                @{Html.RenderAction("Menu", "Nav");}
+            </td>
+            <td style="vertical-align: top">
+                @{
+                    if (Model.CurrentCategory == null)
+                    {
+                        ViewBag.Title = "Products";
+                    }
+                    else
+                    {
+                        ViewBag.Title = Model.CurrentCategory;
+                    }
+                }
+
+                @foreach (var p in Model.Products)
+                {
+                    Html.RenderPartial("ProductSummary", p);
+                }
+                <div class="pager">
+                    @PagingHelpers.PageLinks(null, Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,51 @@
+﻿@model SushiVesla.WebUI.Models.ProductViewModel
+@using SushiVesla.WebUI.HtmlHelpers
+
+@{
+    ViewBag.Title = @Model.Product.Name;
+}
+
+@if (Model.Product != null)
+{
+    Html.RenderPartial("ProductSummary", Model.Product);
+}
+
+<div class="comments">
+    <h3>Comments</h3>
+    <div class="commentsItems">
+        @if (Model.Comments != null && Model.Comments.Count != 0)
+        {
+            foreach (var comment in Model.Comments)
+            {
+                Html.RenderPartial("CommentSummary", comment);
+            }
+        }
+        else
+        {
+            <p>No Comments Yet</p> 
+        }
+    </div>
+    <div class="leaveReply">
+        <h3>Leave a Reply</h3>
+    </div>
+    <div class="addCommentArea">
+        @if (User.Identity.IsAuthenticated)
+        {
+            using (Html.BeginForm("SaveComment", "Product", FormMethod.Post))
+            {
+            <p>
+                <textarea rows="10" cols="79" name="text"></textarea>
+            </p>
+            @Html.Hidden("productId", Model.Product.ProductID)
+            <p>
+                <input type="submit" value="Add comment">
+            </p>
+            }
+        }
+        else
+        {
+            <p>You must be logged in to post a comment</p>
+        }
+    </div>
+
+</div>

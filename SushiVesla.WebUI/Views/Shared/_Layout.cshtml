@@ -1,0 +1,196 @@
+﻿@*<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/style.css")" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/Images/GalaxySportsIcon.png")" />
+    <script src="../../Scripts/jquery-1.7.1.min.js"></script>
+    <script src="../../Scripts/jquery.slidertron-1.1.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header-wrapper">
+            <div id="header">
+                <div id="logo">
+                    <h1>@Html.ActionLink("Sushi Vesla", "Index", "Home")</h1>
+                    <p>Healthy mind in healthy body</p>
+                </div>
+                @{Html.RenderAction("Summary", "Cart");}
+            </div>
+        </div>
+        <!-- end #header -->
+        <div id="page">
+            <div id="page-bgtop">
+                <div id="page-bgbtm">
+                    <div id="sidebar">
+                        <ul>
+                            <li>
+                                <div style="clear: both;">&nbsp;</div>
+                            </li>
+                            <li>
+                                <h2>@Html.ActionLink("Home", "Index", "Home")</h2>
+                            </li>
+                            <li>
+                                <h2>Categories</h2>
+                                @{Html.RenderAction("Menu", "Nav");}
+                            </li>
+                            <li>
+                                <h2>@Html.ActionLink("Search", "Index", "Search")</h2>
+                            </li>
+                            <li>
+                                <h2>@Html.ActionLink("Shops", "Index", "Shops")</h2>
+                            </li>
+                            <li>
+                                <h2>About</h2>
+                                <ul>
+                                    <li>@Html.ActionLink("History", "History", "About")</li>
+                                    <li>@Html.ActionLink("Career", "Career", "About")</li>
+                                    <li>@Html.ActionLink("Contact Us", "ContactUs", "About")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end #sidebar -->
+                    <div id="content">
+                        @RenderBody()
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                    <!-- end #content -->
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer">
+        <p>Copyright © 2013 RDT Software Solutions. All rights reserved.</p>
+    </div>
+    <!-- end #footer -->
+</body>
+</html>*@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Archivo+Narrow:400,700" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/sushi.css")" rel="stylesheet" type="text/css" />
+    @*<link rel="icon" type="image/png" href="@Url.Content("~/Content/Images/GalaxySportsIcon.png")" />*@
+</head>
+
+<body>
+    <div id="wrapper-bg">
+        <div id="wrapper">
+            <div id="header" class="container">
+                <div style="float:right">
+                    @{Html.RenderAction("Summary", "Cart");}
+                </div>
+                <div id="logo">
+                    <h1><a href="/"><span>Sushi</span>Vesla</a></h1>
+                </div>
+                <div id="menu">
+                    <ul>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Menu", "List", "Product")</li>
+                        <li>@Html.ActionLink("Search", "Index", "Search")</li>
+                        <li>@Html.ActionLink("Restaurants", "Index", "Shops")</li>
+                        <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
+                        <li>@Html.ActionLink("About", "Index", "About")</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container" style="margin-bottom: 20px">
+            @RenderBody()
+                </div>
+            @*<div id="banner" class="container">
+                <img src="images/header-photo.jpg" width="1200" height="400" alt="" />
+            </div>
+            <div id="three-column" class="container">
+                <header>
+                    <h2>Pellentesque tristique ante ut risus</h2>
+                </header>
+                <div class="tbox1">
+                    <div class="box-style box-style01">
+                        <div class="content">
+                            <a href="#" class="image image-full">
+                                <img src="images/img01.jpg" alt=""></a>
+                            <h2>Fusce ultrices fringilla</h2>
+                            <p>Aliquam erat volutpat. Pellentesque tristique ante ut risus. Quisque dictum. Integer nisl risus, sagittis convallis, rutrum id, elementum congue, nibh. </p>
+                            <a href="#" class="button-style">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbox2">
+                    <div class="box-style box-style02">
+                        <div class="content">
+                            <a href="#" class="image image-full">
+                                <img src="images/img02.jpg" alt=""></a>
+                            <h2>Mauris vulputate dolor</h2>
+                            <p>Aliquam erat volutpat. Pellentesque tristique ante ut risus. Quisque dictum. Integer nisl risus, sagittis convallis, rutrum id, elementum congue, nibh. </p>
+                            <a href="#" class="button-style">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbox3">
+                    <div class="box-style box-style03">
+                        <div class="content">
+                            <a href="#" class="image image-full">
+                                <img src="images/img03.jpg" alt=""></a>
+                            <h2>Nulla luctus eleifend </h2>
+                            <p>Aliquam erat volutpat. Pellentesque tristique ante ut risus. Quisque dictum. Integer nisl risus, sagittis convallis, rutrum id, elementum congue, nibh.</p>
+                            <a href="#" class="button-style">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="page">
+                <div id="content"></div>
+                <div id="sidebar"></div>
+            </div>
+        </div>*@
+
+        </div>
+        <div id="footer-content" class="container">
+            <div id="fbox1">
+                <h2>Last events</h2>
+                <ul class="style3">
+                    <li class="first">
+                        <p class="date"><a href="#">June<b>12</b></a></p>
+                        <h3>Event 3</h3>
+                        <p>Description 3</p>
+                    </li>
+                    <li>
+                        <p class="date"><a href="#">June<b>7</b></a></p>
+                        <h3>Event 2</h3>
+                        <p>Description 2</p>
+                    </li>
+                    <li>
+                        <p class="date"><a href="#">June<b>1</b></a></p>
+                        <h3>Event 1</h3>
+                        <p>Description 1</p>
+                    </li>
+                    <li>
+                </ul>
+            </div>
+            <div id="fbox2">
+                <h2>About</h2>
+                <p>Olga Razdobreeva</p>
+            </div>
+            <div id="fbox3">
+                <h2>Contact</h2>
+                <p>You can use fallowing information for contact with us:</p>
+                <ul class="style5">
+                    <li class="first"><span class="address">Address</span> <span class="address-01">Kyiv, Yangela st., building 20</span> </li>
+                    <li><span class="mail">Mail</span> <span class="mail-01"><a href="#">something@mail.com</a></span> </li>
+                    <li><span class="phone">Phone</span> <span class="phone-01">(333) 333-33-33</span> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <p>Copyright (c) 2013 Olimpic. All rights reserved.</p>
+    </div>
+</body>
+</html>

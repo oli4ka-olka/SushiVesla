@@ -1,0 +1,81 @@
+﻿@model SushiVesla.ObjectModel.Entities.News
+@{
+    if (Model.Title != "" && Model.Title != null)
+    {
+        ViewBag.Title = "Admin: Edit News";
+    }
+    else
+    {
+        ViewBag.Title = "Admin: Create a News";
+    }
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Title != "" && Model.Title != null)
+{
+    <h1>Edit "@Model.Title"</h1>
+}
+else
+{
+    <h1>Create a News</h1>
+}
+
+<div class="adminGrid">
+    @using (Html.BeginForm("EditNews", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="validationErrors">
+            @Html.ValidationSummary()
+        </div>
+        //@Html.EditorForModel()
+        @Html.HiddenFor(x => x.NewsID)
+        @Html.HiddenFor(x => x.ImageMimeType)
+        @Html.HiddenFor(x => x.ImageData)
+        <table>
+            <tr>
+                <td>Title:</td>
+                <td>
+                    @Html.EditorFor(x => x.Title)
+                </td>
+            </tr>
+            <tr>
+                <td>Body:</td>
+                <td>
+                    @Html.EditorFor(x => x.Body)
+                </td>
+            </tr>
+            <tr>
+                <td>Show on main page:</td>
+                <td>
+                    @Html.EditorFor(x => x.ShowOnMainPage)
+                </td>
+            </tr>
+            <tr>
+                <td>Image:</td>
+                <td>
+                    @if (Model.ImageData == null)
+                    {
+                        @:None
+                    }
+                    else
+                    {
+                        <img width="150" height="150" src="@Url.Action("GetImage", "Home", new { Model.NewsID })" />
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td>Upload new image:</td>
+                <td>
+                    <input type="file" name="Image" value="sdf" />
+
+                </td>
+            </tr>
+        </table>
+        <div class="adminActionButtonsLayout">
+            <div class="adminActionButtons">
+                <input class="adminActionButtons" type="submit" value="Save" />
+                @Html.ActionLink("Cancel and return to last", "News")
+            </div>
+        </div>
+    }
+</div>

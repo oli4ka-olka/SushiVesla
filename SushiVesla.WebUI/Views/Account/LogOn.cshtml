@@ -1,0 +1,28 @@
+﻿@model SushiVesla.WebUI.Models.LogOnViewModel
+@{
+    ViewBag.Title = "Sign In";
+        //Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Sign In</h1>
+
+<div class="signIn">
+    @using (Html.BeginForm())
+    {
+        <div class="validationErrors">
+            @Html.ValidationSummary(true)
+        </div>
+@*<div style="font-size: 2em">
+            @Html.EditorForModel()
+        </div>*@
+        <div class="signInField">
+            <h3>Login: </h3>@Html.EditorFor(x => x.UserName)
+        </div>
+        <div class="signInField">
+            <h3>Password: </h3>@Html.EditorFor(x => x.Password)
+        </div>
+        <p>
+            <input type="submit" value="Sign in" />
+        </p> 
+    }
+</div>

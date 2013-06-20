@@ -1,0 +1,130 @@
+﻿@model SushiVesla.ObjectModel.Entities.User
+@{
+    if (Model.Login != "" && Model.Login != null)
+    {
+        ViewBag.Title = "Admin: Edit User";
+    }
+    else
+    {
+        ViewBag.Title = "Admin: Create User";
+    }
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Login != "" && Model.Login != null)
+{
+    <h1>Edit "@Model.Login"</h1>
+}
+else
+{
+    <h1>Create User</h1>
+}
+
+<div class="adminGrid">
+    @using (Html.BeginForm("EditUser", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="validationErrors">
+            @Html.ValidationSummary()
+        </div>
+        //@Html.EditorForModel()
+        @Html.HiddenFor(x => x.UserID)
+        @Html.HiddenFor(x => x.Deleted)
+        <table>
+            @if (Model.Login != "" && Model.Login != null)
+            {
+                @Html.HiddenFor(x => x.Password)
+                <tr>
+                    <td>Login:</td>
+                    <td>
+                        @Model.Login
+                    </td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        @Model.Name
+                    </td>
+                </tr>
+                <tr>
+                    <td>Surname:</td>
+                    <td>
+                        @Model.Surnaame
+                    </td>
+                </tr>
+                <tr>
+                    <td>Phone number:</td>
+                    <td>
+                        @Model.PhoneNumber
+                    </td>
+                </tr>
+                <tr>
+                    <td>E-mail:</td>
+                    <td>
+                        @Model.EmailAddress
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>Login:</td>
+                    <td>
+                        @Html.EditorFor(x => x.Login)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td>
+                        @Html.EditorFor(x => x.Password)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        @Html.EditorFor(x => x.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Surname:</td>
+                    <td>
+                        @Html.EditorFor(x => x.Surnaame)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Phone number:</td>
+                    <td>
+                        @Html.EditorFor(x => x.PhoneNumber)
+                    </td>
+                </tr>
+                <tr>
+                    <td>E-mail:</td>
+                    <td>
+                        @Html.EditorFor(x => x.EmailAddress)
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>Current role:</td>
+                <td>
+                    @(Model.Role == 0 ? "none" : Model.Role.ToString())
+                </td>
+            </tr>
+            <tr>
+                <td>Change role to:</td>
+                <td>
+                    @Html.DropDownListFor(model => model.Role, Enum.GetValues(typeof(SushiVesla.ObjectModel.Entities.UserRoles)).Cast<SushiVesla.ObjectModel.Entities.UserRoles>().Select(v => new SelectListItem
+               {
+                   Text = v.ToString().Replace("_", " "),
+                   Value = ((int)v).ToString()
+               }), "[Select]")
+                </td>
+            </tr>
+        </table>
+        <div class="adminActionButtonsLayout">
+            <div class="adminActionButtons">
+                <input class="adminActionButtons" type="submit" value="Save" />
+                @Html.ActionLink("Cancel and return to last", "Users")
+            </div>
+        </div>
+    }
+</div>

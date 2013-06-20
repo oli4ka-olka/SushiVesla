@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SushiVesla.ObjectModel.Entities.Order>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ServiceStaffLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+@foreach (var order in Model)
+{
+    <table>
+        @if (order.ProcessedBy == 0)
+        {
+            <tr>
+                @order.OrderID
+            </tr>
+            <tr>
+                @using (Html.BeginForm("AddToQueue", "ServiceStaff"))
+                {
+                    @Html.Hidden("OrderId", order.OrderID)
+                    <input class="actionButtons" type="submit" value="Add to my queue" />
+                }
+            </tr>
+        }
+    </table>
+}

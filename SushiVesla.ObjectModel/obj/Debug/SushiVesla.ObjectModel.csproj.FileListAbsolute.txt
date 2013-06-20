@@ -1,0 +1,6 @@
+F:\SushiVesla\SushiVesla\SushiVesla.ObjectModel\bin\Debug\SushiVesla.ObjectModel.dll
+F:\SushiVesla\SushiVesla\SushiVesla.ObjectModel\bin\Debug\SushiVesla.ObjectModel.pdb
+F:\SushiVesla\SushiVesla\SushiVesla.ObjectModel\bin\Debug\EntityFramework.dll
+F:\SushiVesla\SushiVesla\SushiVesla.ObjectModel\obj\Debug\SushiVesla.ObjectModel.dll
+F:\SushiVesla\SushiVesla\SushiVesla.ObjectModel\obj\Debug\SushiVesla.ObjectModel.pdb
+F:\SushiVesla\SushiVesla\SushiVesla.ObjectModel\obj\Debug\SushiVesla.ObjectModel.csprojResolveAssemblyReference.cache

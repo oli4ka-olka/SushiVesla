@@ -1,0 +1,68 @@
+﻿@model SushiVesla.ObjectModel.Entities.Category
+@{
+    if (Model.Name != "" && Model.Name != null)
+    {
+        ViewBag.Title = "Admin: Edit Category";
+    }
+    else
+    {
+        ViewBag.Title = "Admin: Crate Category";
+    }
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Name != "" && Model.Name != null)
+{
+    <h1>Edit "@Model.Name"</h1>
+}
+else
+{
+    <h1>Crate Category</h1>
+}
+
+<div class="adminGrid">
+    @using (Html.BeginForm("EditCategory", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        //@Html.EditorForModel()
+        @Html.HiddenFor(x => x.CategoryID)
+        @Html.HiddenFor(x => x.ImageData)
+        @Html.HiddenFor(x => x.ImageMimeType)
+        @Html.HiddenFor(x => x.Deleted)
+        <div class="validationErrors">
+            @Html.ValidationSummary()
+        </div>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>@Html.EditorFor(x => x.Name)</td>
+            </tr>
+            <tr>
+                <td>Image:</td>
+                <td>
+                    @if (Model.ImageData == null)
+                    {
+                        @:None
+                    }
+                    else
+                    {
+                        <img width="150" height="150" src="@Url.Action("GetImage", "Nav", new { Model.CategoryID })" />
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td>Upload new image:</td>
+                <td>
+                    <input type="file" name="Image" value="sdf" />
+
+                </td>
+            </tr>
+        </table>
+        <div class="adminActionButtonsLayout">
+            <div class="adminActionButtons">
+                <input class="adminActionButtons" type="submit" value="Save" />
+                @Html.ActionLink("Cancel and return to last", "Categories")
+            </div>
+        </div>
+    }
+</div>

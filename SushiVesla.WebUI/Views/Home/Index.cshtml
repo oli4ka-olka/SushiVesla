@@ -1,0 +1,17 @@
+﻿@model IEnumerable<SushiVesla.ObjectModel.Entities.News>
+@{
+    ViewBag.Title = "Sushi Vesla";
+}
+
+<div id="banner" class="container">
+    @*<img  width="1200" height="750" src="@Url.Content("~/Content/Images/sushi_palochki.jpg")/>*@
+    <img width="1200" height="573" src="../../Content/Images/sushi_palochki.jpg" />
+</div>
+
+@*@foreach (var news in Model)
+{
+    if (news.ShowOnMainPage)
+    {
+        Html.RenderPartial("NewsSummary", news);
+    }
+}*@

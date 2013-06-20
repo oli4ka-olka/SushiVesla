@@ -1,0 +1,81 @@
+﻿@model SushiVesla.WebUI.Models.CartIndexViewModel
+@{
+    ViewBag.Title = "Sushi Vesla: Your Cart";
+}
+
+<h1>Your Cart</h1>
+<div class="cartPage">
+    @if (Model.Cart.Lines.Count() != 0)
+    {
+        <table width="90%" align="center">
+            <thead>
+                <tr>
+                    <th align="left">Item</th>
+                    <th align="right">Price</th>
+                    <th align="right">Cost of delivery</th>
+                    <th align="center">Quantity</th>
+                    <th align="right">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var line in Model.Cart.Lines)
+                {
+                    <tr>
+                        <td align="left">@Html.ActionLink(line.Product.Name, "Product", "Product", new { ID = line.Product.ProductID }, null)</td>
+                        <td align="right">@line.Product.Price.ToString("c")</td>
+                        <td align="right">@(((int)0).ToString("c"))</td>
+                        <td align="center">@line.Quantity</td>
+                        <td align="right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
+                        <td align="center">
+                            @using (Html.BeginForm("AddToCart", "Cart"))
+                            {
+                                @Html.Hidden("ProductId", line.Product.ProductID)
+                                @Html.HiddenFor(x => x.ReturnUrl)
+                                <input class="updown" style="color: green" type="submit" value="+" />
+                            }
+                        </td>
+                        <td align="center">
+                            @if (line.Quantity != 1)
+                            {
+                                using (Html.BeginForm("RemoveSingleItemFromCart", "Cart"))
+                                {
+                                @Html.Hidden("ProductId", line.Product.ProductID);
+                                @Html.HiddenFor(x => x.ReturnUrl);
+                                
+                                <input class="updown" style="color: red" type="submit" value="-" />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                            {
+                                @Html.Hidden("ProductId", line.Product.ProductID)
+                                @Html.HiddenFor(x => x.ReturnUrl)
+                                <input class="actionButtons" type="submit" value="Remove" />
+                            }
+                        </td>
+
+                    </tr>	  
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" align="right" style="font-weight: bold">Total:</td>
+                    <td align="center">@Model.Cart.ComputeTotalQuantity()</td>
+                    <td align="right">@Model.Cart.ComputeTotalValue().ToString("c")</td>
+                </tr>
+            </tfoot>
+        </table>
+    }
+    else
+    {
+        <h3>Yor cart is empty!</h3>
+    }
+    <p align="center" class="actionButtons" style="margin-top: 20px">
+        <a href="@Model.ReturnUrl">Continue shopping</a>
+        @if (Model.Cart.Lines.Count() != 0)
+        {
+            @Html.ActionLink("Checkout now", "Checkout")
+        }
+    </p>
+</div>

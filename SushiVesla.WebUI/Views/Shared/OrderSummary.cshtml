@@ -1,0 +1,151 @@
+﻿@model SushiVesla.WebUI.Models.OrderViewModel
+<div class="productItem">
+    <table>
+        <tr>
+            <td colspan="2">
+                <h3>Ship to</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td>@Model.Order.UserName</td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td>@Model.Order.PhoneNumber</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <h3>Address</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>Country:</td>
+            <td>@Model.Order.Country</td>
+        </tr>
+        <tr>
+            <td>State:</td>
+            <td>
+                @Model.Order.State</td>
+        </tr>
+        <tr>
+            <td>City:</td>
+            <td>@Model.Order.City</td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td>@Model.Order.Address</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <h3>Options</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Model.Order.GiftWrap
+            </td>
+            <td>Gift wrap these items
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Model.Order.RushOrder
+            </td>
+            <td>Rush order
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <h3>Payment options</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>Payment method:</td>
+            <td>@Model.Order.PaymentMethod
+            </td>
+        </tr>
+    </table>
+    <h3>Products:</h3>
+    <table width="90%" align="center">
+        <thead>
+            <tr>
+                <th align="left">Item</th>
+                <th align="right">Price</th>
+                <th align="center">Quantity</th>
+                <th align="right">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.OrderProducts)
+            {
+                <tr>
+                    <td align="left">@(Model.Products.FirstOrDefault(x => x.ProductID == product.ProductID).Name)</td>
+                    <td align="right">@product.Price.ToString("c")</td>
+                    <td align="center">@product.Quantity</td>
+                    <td align="right">@((product.Quantity * product.Price).ToString("c"))</td>
+                </tr>	  
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" align="right" style="font-weight: bold">Total:</td>
+                <td align="right">@(Model.OrderProducts.Sum(x => x.Price * x.Quantity).ToString("c"))</td>
+            </tr>
+        </tfoot>
+    </table>
+    <h3>Order information</h3>
+    <table>
+        <tr>
+            <td>Delivered:
+            </td>
+            <td>
+                @Model.Order.Delivered
+            </td>
+            <td>
+                @if (!Model.Order.Delivered)
+                {
+                    using (Html.BeginForm("DeliverOrder", "ServiceStaff"))
+                    {
+                    @Html.Hidden("OrderId", Model.Order.OrderID)
+                    <input class="actionButtons" type="submit" value="Order is delivered" />
+                    }
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>Paid:
+            </td>
+            <td>
+                @Model.Order.Paid
+            </td>
+            <td>
+                @if (!Model.Order.Paid)
+                {
+                    using (Html.BeginForm("PayOrder", "ServiceStaff"))
+                    {
+                    @Html.Hidden("OrderId", Model.Order.OrderID)
+                    <input class="actionButtons" type="submit" value="Order is paid" />
+                    }
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>Order Is Executed:
+            </td>
+            <td>
+                @Model.Order.TheOrderIsExecuted
+            </td>
+            <td>
+                @if (Model.Order.Delivered && Model.Order.Paid && !Model.Order.TheOrderIsExecuted)
+                {
+                    using (Html.BeginForm("ExecuteOrder", "ServiceStaff"))
+                    {
+                    @Html.Hidden("OrderId", Model.Order.OrderID)
+                    <input class="actionButtons" type="submit" value="Order is executed" />
+                    }
+                }
+            </td>
+        </tr>
+    </table>
+</div>

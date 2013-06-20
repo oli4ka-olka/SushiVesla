@@ -1,0 +1,54 @@
+﻿@model SushiVesla.ObjectModel.Entities.User
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+<h1>Sign Up</h1>
+
+@using (Html.BeginForm("EditUser", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{    
+    <div class="signUp">
+        <div class="validationErrors">
+            @Html.ValidationSummary()
+        </div>
+        <table>
+            <tr>
+                <td>
+                    <h3>Login:</h3>
+                </td>
+                <td>@Html.EditorFor(x => x.Login)</td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Password:</h3>
+                </td>
+                <td>@Html.EditorFor(x => x.Password)</td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>E-mail:</h3>
+                </td>
+                <td>@Html.EditorFor(x => x.EmailAddress)</td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Name:</h3>
+                </td>
+                <td>@Html.EditorFor(x => x.Name)</td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Surname:</h3>
+                </td>
+                <td>@Html.EditorFor(x => x.Surnaame)</td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Phone number:</h3>
+                </td>
+                <td>@Html.EditorFor(x => x.PhoneNumber)</td>
+            </tr>
+        </table>
+        <input type="submit" value="Save" />
+    </div>
+}

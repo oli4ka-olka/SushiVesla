@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SushiVesla.ObjectModel.Entities.News>
+@{
+    ViewBag.Title = "Admin: News";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>News</h1>
+
+<div class="adminGrid">
+    <table width="90%" align="center">
+        <tr>
+            <th align="center">ID</th>
+            <th align="center">Title</th>
+            <th align="center">Publish time</th>
+            <th align="center">Enabled</th>
+            <th align="center">Actions</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td align="center">@item.NewsID</td>
+                <td align="center">@Html.ActionLink(item.Title, "EditNews", new { item.NewsID })</td>
+                <td align="center" class="NumericCol">@item.PublishTime.ToString("dd.MM.yyyy")</td>
+                <td align="center">@item.ShowOnMainPage</td>
+                <td align="center">
+                    @using (Html.BeginForm("DeleteNews", "Admin"))
+                    {
+                        @Html.Hidden("NewsId", item.NewsID)
+                        <input type="submit" value="Delete" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="adminActionButtonsLayout">
+        <div class="adminActionButtons">
+            @Html.ActionLink("Add a new news", "CreateNews")
+        </div>
+    </div>
+</div>

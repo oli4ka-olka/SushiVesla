@@ -1,0 +1,12 @@
+﻿@model SushiVesla.WebUI.Models.CommentViewModel
+<div class="commentItem">
+    <div>
+        <h4>@Model.User.Name</h4>
+    </div>
+    <div class="commentDate">
+        @Model.Time.Date.ToString("dd.MM.yyyy")
+    </div>
+    <div>
+        @Model.CommentText
+    </div>
+</div>

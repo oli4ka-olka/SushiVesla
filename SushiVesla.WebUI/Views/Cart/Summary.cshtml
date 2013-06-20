@@ -1,0 +1,36 @@
+﻿@model SushiVesla.ObjectModel.Entities.Cart
+@{
+    Layout = null;
+}
+
+<div id="cart">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <table>
+            <tr>
+                <td>Hi @User.Identity.Name!
+                </td>
+                <td>
+                    @Html.ActionLink("Sign out", "LogOff", "Account", new { returnUrl = Request.Url.PathAndQuery }, null)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>
+                        <b>Your cart:</b>
+                        @Model.Lines.Sum(x => x.Quantity) item(s),
+		@Model.ComputeTotalValue().ToString("c")
+                    </span>
+                </td>
+                <td>
+                    @Html.ActionLink("Checkout", "Index", "Cart", new { returnUrl = Request.Url.PathAndQuery }, null)
+                </td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        <span>You can @Html.ActionLink("Sign in", "LogOn", "Account", new { returnUrl = Request.Url.PathAndQuery }, null) or @Html.ActionLink("Sign up", "SignUp", "Account", new { returnUrl = Request.Url.PathAndQuery }, null) to start shopping!
+        </span>
+    }
+</div>

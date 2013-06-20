@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SushiVesla.ObjectModel.Entities.User>
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Users</h1>
+
+<div class="adminGrid">
+    <table width="90%" align="center">
+        <tr>
+            <th align="center">ID</th>
+            <th align="center">Login</th>
+            <th align="center">Name</th>
+            <th align="center">Surname</th>
+            <th align="center">Actions</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td align="center">@item.UserID</td>
+                <td align="center">@Html.ActionLink(item.Login, "EditUser", new { item.UserID })</td>
+                <td align="center">@Html.ActionLink(item.Name, "EditUser", new { item.UserID })</td>
+                <td align="center">@Html.ActionLink(item.Surnaame, "EditUser", new { item.UserID })</td>
+                <td align="center">
+                    @using (Html.BeginForm("DeleteUser", "Admin"))
+                    {
+                        @Html.Hidden("UserId", item.UserID)
+                        <input type="submit" value="Delete" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="adminActionButtonsLayout">
+        <div class="adminActionButtons">
+            @Html.ActionLink("Add a new user", "CreateUser")
+        </div>
+    </div>
+</div>

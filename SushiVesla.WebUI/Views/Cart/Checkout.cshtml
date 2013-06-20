@@ -1,0 +1,96 @@
+﻿@model SushiVesla.ObjectModel.Entities.ShippingDetails
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h1>Checkout</h1>
+@*Please enter your details, and we'll ship your goods right away!*@
+<div class="cartPage">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(x => x.UserId)
+        <table>
+            <tr>
+                <td colspan="2">
+                    <h3>Ship to</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td>@Html.EditorFor(x => x.Name)</td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td>@Html.EditorFor(x => x.PhoneNumber)</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h3>Address</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td>@Html.EditorFor(x => x.Country)</td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td>
+                    @Html.EditorFor(x => x.State)</td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>@Html.EditorFor(x => x.City)</td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td>@Html.EditorFor(x => x.Address)</td>
+            </tr>
+            @*<div>Zip: @Html.EditorFor(x => x.Zip)</div>*@
+            <tr>
+                <td colspan="2">
+                    <h3>Options</h3>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label>
+                        @Html.EditorFor(x => x.GiftWrap)
+                        Gift wrap these items
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label>
+                        @Html.EditorFor(x => x.RushOrder)
+                        Rush order
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h3>Payment options</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>Payment method:</td>
+                @*<td>@Html.EditorFor(x => x.PaymentMethod)</td>*@
+                <td>@Html.DropDownListFor(model => model.PaymentMethod, Enum.GetValues(typeof(SushiVesla.ObjectModel.Entities.PaymentMethods)).Cast<SushiVesla.ObjectModel.Entities.PaymentMethods>().Select(v => new SelectListItem
+               {
+                   Text = v.ToString().Replace("_", " "),
+                   Value = ((int)v).ToString()
+               }), "[Select]")
+                </td>
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td>
+                    @(ViewBag.TotalSum != null ? (((int)ViewBag.TotalSum).ToString("c")) : "")
+                </td>
+        </table>
+        <p align="center">
+            <input class="actionButtons" type="submit" value="Complete order" />
+        </p>
+    }
+</div>

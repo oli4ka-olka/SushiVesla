@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SushiVesla.ObjectModel.Entities.Category>
+@{
+    ViewBag.Title = "Admin: Categories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Categories</h1>
+
+<div class="adminGrid">
+    @*<div class="validationErrors">
+        @if (TempData["deleteCategoryError"] != null)
+        {
+            <ul>
+                <li>@TempData["deleteCategoryError"].ToString()</li>
+            </ul>
+        }
+    </div>*@
+    <table width="50%" align="center">
+        <tr>
+            <th align="center">ID</th>
+            <th align="center">Name</th>
+            <th align="center">Actions</th>
+        </tr>
+
+        @foreach (var item in Model.Where(x => !x.Deleted))
+        {
+            <tr>
+                <td align="center">@item.CategoryID</td>
+                <td align="center">@Html.ActionLink(item.Name, "EditCategory", new { item.CategoryID })</td>
+                <td align="center">
+                    @using (Html.BeginForm("DeleteCategory", "Admin"))
+                    {
+                        @Html.Hidden("CategoryID", item.CategoryID)
+                        <input type="submit" value="Delete" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="adminActionButtonsLayout">
+        <div class="adminActionButtons">
+            @Html.ActionLink("Add a new category", "CreateCategory")
+        </div>
+    </div>
+</div>

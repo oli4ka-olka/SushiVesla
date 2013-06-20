@@ -1,0 +1,13 @@
+﻿@model List<SushiVesla.WebUI.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "MyQueue";
+    Layout = "~/Views/Shared/_ServiceStaffLayout.cshtml";
+}
+
+<h2>MyQueue</h2>
+
+@foreach (var order in Model)
+{
+    Html.RenderPartial("OrderSummary", order);
+}

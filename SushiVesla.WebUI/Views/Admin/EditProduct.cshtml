@@ -1,0 +1,88 @@
+﻿@model SushiVesla.ObjectModel.Entities.Product
+@{
+    if (Model.Name != "" && Model.Name != null)
+    {
+        ViewBag.Title = "Admin: Edit Product";
+    }
+    else
+    {
+        ViewBag.Title = "Admin: Crate Product";
+    }
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Name != "" && Model.Name != null)
+{
+    <h1>Edit "@Model.Name"</h1>
+}
+else
+{
+    <h1>Create Product</h1>
+}
+
+<div class="adminGrid">
+    @using (Html.BeginForm("EditProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="validationErrors">
+            @Html.ValidationSummary()
+        </div>
+        //@Html.EditorForModel()
+        @Html.HiddenFor(x => x.ProductID)
+        @Html.HiddenFor(x => x.ImageMimeType)
+        @Html.HiddenFor(x => x.ImageData)
+        @Html.HiddenFor(x => x.Deleted)
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td>
+                    @Html.EditorFor(x => x.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>
+                    @Html.EditorFor(x => x.Description)
+                </td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td>
+                    @Html.EditorFor(x => x.Price)
+                </td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>
+                    @*   @Html.EditorFor(x => x.Category)*@
+                    @Html.DropDownListFor(model => model.Category, (IEnumerable<SelectListItem>)ViewData["Categories"], "choose")
+                </td>
+            </tr>
+            <tr>
+                <td>Image:</td>
+                <td>
+                    @if (Model.ImageData == null)
+                    {
+                        @:None
+                    }
+                    else
+                    {
+                        <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { Model.ProductID })" />
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Upload new image:</td>
+                <td>
+                    <input type="file" name="Image" value="sdf" />
+
+                </td>
+            </tr>
+        </table>
+        <div class="adminActionButtonsLayout">
+            <div class="adminActionButtons">
+                <input class="adminActionButtons" type="submit" value="Save" />
+                @Html.ActionLink("Cancel and return to last", "Products")
+            </div>
+        </div>
+    }
+</div>

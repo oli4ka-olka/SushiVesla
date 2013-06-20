@@ -1,0 +1,33 @@
+﻿@model SushiVesla.ObjectModel.Entities.News
+@if (Model.ImageData != null)
+{
+    <div class="newsItem" style="min-height: 215px">
+        <div>
+            <h3>@Model.Title</h3>
+        </div>
+        <div class="mewsDate">
+            @Model.PublishTime.ToString("dd.MM.yyyy")
+        </div>
+        <div style="float: left; margin-right: 20px">
+            <img width="150" height="150" src="@Url.Action("GetImage", "Home", new { Model.NewsID })" />
+            @*<img width="150" height="150" src="@Url.Content("~/Content/Images/galaxy_no_image.png")"/>*@
+        </div>
+        <div class="newsBody">
+            @Model.Body
+        </div>
+    </div>
+}
+else
+{
+    <div class="newsItem">
+        <div>
+            <h3>@Model.Title</h3>
+        </div>
+        <div class="mewsDate">
+            @Model.PublishTime.ToString("dd.MM.yyyy")
+        </div>
+        <div class="newsBody">
+            @Model.Body
+        </div>
+    </div>
+}
