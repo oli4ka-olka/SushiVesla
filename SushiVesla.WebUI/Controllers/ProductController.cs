@@ -12,7 +12,7 @@ namespace SushiVesla.WebUI.Controllers
 {
     public class ProductController : Controller
     {
-        public int PageSize = 3;
+        public int PageSize = 5;
         private IProductRepository productRepository;
         private ICategoryRepository categoryRepository;
         private ICommentRepository commentRepository;
