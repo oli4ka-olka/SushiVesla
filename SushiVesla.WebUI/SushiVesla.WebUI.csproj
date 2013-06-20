@@ -202,6 +202,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="googleaf8ca82e3bca7fc1.html" />
     <Content Include="Libraries\EntityFramework.dll" />
     <Content Include="Libraries\Moq.dll" />
     <Content Include="Libraries\Ninject.dll" />
